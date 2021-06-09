@@ -32,19 +32,19 @@ public class User implements Serializable {
     private Date accountCreationDate;
 
     // The relation with the Gamer table
-    @JoinColumn(name = "id", referencedColumnName = "gamerId")
+    @JoinColumn(referencedColumnName = "gamerId")
     @OneToOne
-    private Gamer gamer;
+    private Gamer relatedGamer;
 
-    //! Empty constructor for the Java Beans requisite
+    // Empty constructor for the Java Beans requisite
     public User() {}
 
-    //! By ID constructor
+    // By ID constructor
     public User(Integer id) {
         this.id = id;
     }
 
-    // //! Getters and Setters
+    // Getters and Setters
     public int getId() {
         return this.id;
     }
@@ -85,11 +85,37 @@ public class User implements Serializable {
         this.accountCreationDate = accountCreationDate;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Gamer getRelatedGamer() {
+        return relatedGamer;
+    }
+
+    public void setRelatedGamer(Gamer relatedGamer) {
+        this.relatedGamer = relatedGamer;
+    }
+
     @Override
     public String toString() {
-        return "User [accountCreationDate=" + accountCreationDate + ", email=" + email + ", id=" + id + ", lastName="
-                + lastName + ", name=" + name + ", password=" + password + ", username=" + username + "]";
+        return "User [accountCreationDate=" + accountCreationDate + ", email=" + email + ", gamer=" + relatedGamer + ", id="
+                + id + ", lastName=" + lastName + ", name=" + name + ", password=" + password + ", username=" + username
+                + "]";
     }
+
 
     
 

@@ -1,6 +1,7 @@
 package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,15 +19,12 @@ public class Gamer implements Serializable {
     private String nickname;
 
     // The reverse relation with user
-    @OneToOne(mappedBy = "gamer")
-    // @Column(name = "related_user")
+    @OneToOne(mappedBy = "relatedGamer")
     private User relatedUser;
 
     // The relation with the different games that the gamer already started
-    @JoinColumn(name = "relatedGameData", referencedColumnName = "gameDataId")
-    @ManyToOne
-    // @Column(name = "related_game_data")
-    private GameData relatedGameData;
+    @OneToMany(mappedBy = "relatedGamer")
+    private List<GameData> relatedGameData;
 
     //! Empty constructor
     public Gamer() {}
@@ -45,19 +43,19 @@ public class Gamer implements Serializable {
         this.nickname = nickname;
     }
 
-    public User getRelatedUser() {
-        return this.relatedUser;
-    }
+    // public User getRelatedUser() {
+    //     return this.relatedUser;
+    // }
 
-    public void setUser(User user) {
-        this.relatedUser = user;
-    }
+    // public void setUser(User user) {
+    //     this.relatedUser = user;
+    // }
 
-    public GameData getRelatedGameData() {
+    public List<GameData> getRelatedGameData() {
         return this.relatedGameData;
     }
 
-    public void setRelatedGameData(GameData gameData) {
+    public void setRelatedGameData(List<GameData> gameData) {
         this.relatedGameData = gameData;
     }
 }

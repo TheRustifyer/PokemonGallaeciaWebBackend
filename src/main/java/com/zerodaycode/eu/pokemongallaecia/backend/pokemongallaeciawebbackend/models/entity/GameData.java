@@ -11,25 +11,35 @@ public class GameData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private short gameDataId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int gameDataId;
 
-    @OneToOne(mappedBy = "relatedGameData")
-    private Gamer related_gamer;
+    @JoinColumn(referencedColumnName = "gamerId")
+    @OneToOne
+    private Gamer relatedGamer;
 
     //! Empty constructor
     public GameData() {}
 
     //! By ID constructor
-    public GameData(short id) {
+    public GameData(int id) {
         this.gameDataId = id;
     }
 
     //! Getters and Setters
-    public short getId() {
+    public int getId() {
         return this.gameDataId;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.gameDataId  = id;
     }
+
+    // public Gamer getRelatedGamer() {
+    //     return this.relatedGamer;
+    // }
+
+    // public void setRelatedGamer(Gamer relatedGamer) {
+    //     this.relatedGamer = relatedGamer;
+    // }
 }
