@@ -5,8 +5,12 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +38,8 @@ public class User implements Serializable {
     // The relation with the Gamer table
     @JoinColumn(referencedColumnName = "gamerId")
     @OneToOne
-    private Gamer relatedGamer;
+    // @JsonBackReference // Avoids infinite recursion loading this field
+    private Gamer gamer;
 
     // Empty constructor for the Java Beans requisite
     public User() {}
@@ -101,17 +106,17 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Gamer getRelatedGamer() {
-        return relatedGamer;
+    public Gamer getGamer() {
+        return gamer;
     }
 
-    public void setRelatedGamer(Gamer relatedGamer) {
-        this.relatedGamer = relatedGamer;
+    public void setGamer(Gamer gamer) {
+        this.gamer = gamer;
     }
 
     @Override
     public String toString() {
-        return "User [accountCreationDate=" + accountCreationDate + ", email=" + email + ", gamer=" + relatedGamer + ", id="
+        return "User [accountCreationDate=" + accountCreationDate + ", email=" + email + ", gamer=" + gamer + ", id="
                 + id + ", lastName=" + lastName + ", name=" + name + ", password=" + password + ", username=" + username
                 + "]";
     }

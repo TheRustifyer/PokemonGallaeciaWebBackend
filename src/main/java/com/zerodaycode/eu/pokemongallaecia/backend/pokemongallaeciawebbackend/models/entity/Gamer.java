@@ -19,7 +19,7 @@ public class Gamer implements Serializable {
     private String nickname;
 
     // The reverse relation with user
-    @OneToOne(mappedBy = "relatedGamer")
+    @OneToOne(mappedBy = "gamer")
     private User relatedUser;
 
     // The relation with the different games that the gamer already started
@@ -43,13 +43,13 @@ public class Gamer implements Serializable {
         this.nickname = nickname;
     }
 
-    // public User getRelatedUser() {
-    //     return this.relatedUser;
-    // }
+    public User getRelatedUser() {
+        return this.relatedUser;
+    }
 
-    // public void setUser(User user) {
-    //     this.relatedUser = user;
-    // }
+    public void setUser(User user) {
+        this.relatedUser = user;
+    }
 
     public List<GameData> getRelatedGameData() {
         return this.relatedGameData;
