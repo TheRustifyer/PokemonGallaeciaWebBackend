@@ -24,24 +24,26 @@ public class User implements Serializable {
     private String password;
     private String email;
 
-    // User personal data
+
+    // User "real life" data
     private String name;
 
     @Column(name = "last_name")
     private String lastName;
     
+
     // Account details
     @Column(name = "account_creation_date")
     @Temporal(TemporalType.DATE)
     private Date accountCreationDate;
 
+
     // The relation with the Gamer table
     @JoinColumn(referencedColumnName = "gamerId")
     @OneToOne
-    // @JsonBackReference // Avoids infinite recursion loading this field
     private Gamer gamer;
 
-    // Empty constructor for the Java Beans requisite
+    // Empty constructor (Java Beans requisite)
     public User() {}
 
     // By ID constructor
