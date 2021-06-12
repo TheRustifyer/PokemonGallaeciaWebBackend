@@ -14,9 +14,9 @@ public class GameData implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameDataId;
 
-    @JoinColumn(referencedColumnName = "gamerId")
+    @JoinColumn(referencedColumnName = "id")
     @OneToOne
-    private Gamer relatedGamer;
+    private Trainer relatedTrainer;
 
     //! Empty constructor
     public GameData() {}
@@ -35,11 +35,11 @@ public class GameData implements Serializable {
         this.gameDataId  = id;
     }
 
-    // public Gamer getRelatedGamer() {
-    //     return this.relatedGamer;
+    // public Trainer getRelatedTrainer() {
+    //     return this.relatedTrainer;
     // }
 
-    // public void setRelatedGamer(Gamer relatedGamer) {
-    //     this.relatedGamer = relatedGamer;
+    // public void setRelatedTrainer(Trainer relatedTrainer) {
+    //     this.relatedTrainer = relatedTrainer;
     // }
 }

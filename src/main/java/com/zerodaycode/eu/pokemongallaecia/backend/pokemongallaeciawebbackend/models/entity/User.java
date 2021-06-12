@@ -38,10 +38,10 @@ public class User implements Serializable {
     private Date accountCreationDate;
 
 
-    // The relation with the Gamer table
-    @JoinColumn(referencedColumnName = "gamerId")
+    // The relation with the trainer table
+    @JoinColumn(referencedColumnName = "id")
     @OneToOne
-    private Gamer gamer;
+    private Trainer trainer;
 
     // Empty constructor (Java Beans requisite)
     public User() {}
@@ -108,17 +108,17 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Gamer getGamer() {
-        return gamer;
+    public Trainer gettrainer() {
+        return trainer;
     }
 
-    public void setGamer(Gamer gamer) {
-        this.gamer = gamer;
+    public void settrainer(Trainer trainer) {
+        this.trainer = trainer;
     }
 
     @Override
     public String toString() {
-        return "User [accountCreationDate=" + accountCreationDate + ", email=" + email + ", gamer=" + gamer + ", id="
+        return "User [accountCreationDate=" + accountCreationDate + ", email=" + email + ", trainer=" + trainer + ", id="
                 + id + ", lastName=" + lastName + ", name=" + name + ", password=" + password + ", username=" + username
                 + "]";
     }
