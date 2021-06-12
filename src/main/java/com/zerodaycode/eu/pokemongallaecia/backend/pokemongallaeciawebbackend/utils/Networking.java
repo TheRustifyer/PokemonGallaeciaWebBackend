@@ -16,16 +16,13 @@ public class Networking {
                 .build();
     }
 
-    public void makeGetRequest() throws Exception {
+    public void makeGetRequest(String url) throws Exception {
 
         System.out.println("*** Http GET request ***");
 
-        String url = "https://api.openweathermap.org/data/2.5/weather?q=santiago%20de%20compostela,es&lang=es&appid=";
-        String secretKey = "14c1ede1b48a18e153a2880b372494c6";
-        
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(url + secretKey))
+                .uri(URI.create(url))
                 .setHeader("User-Agent", USER_AGENT) // request header
                 .build();
 
@@ -39,35 +36,27 @@ public class Networking {
         System.out.println(response.body() + "\n");
 
         System.out.println("*** END of Http GET request ***");
+        // Still on implementation
 
     }
 
-    public void makePostRequest() throws Exception {
+    public void makePostRequest(String url) throws Exception {
 
         System.out.println("*** Http POST request ***");
 
-        String url = "https://www.onlinefreeconverter.com/test/post";
-
-        String urlParameters = "param1=a&param2=b&param3=c";
-
+        String urlParameters = "";
+        // String urlParameters = "param1=a&param2=b&param3=c";
  
         HttpRequest request = HttpRequest.newBuilder()
 
                 .POST(HttpRequest.BodyPublishers.ofString(urlParameters))
-
                 .uri(URI.create(url))
-
                 .setHeader("User-Agent", USER_AGENT) // request header
-
                 .header("Content-Type", "application/x-www-form-urlencoded")
-
                 .build();
-
- 
 
         HttpResponse<String> response = getHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 
- 
 
         System.out.println("\nPOST request to URL: " + url);
 

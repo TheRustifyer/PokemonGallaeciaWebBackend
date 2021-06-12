@@ -17,8 +17,7 @@ public class PokemonGallaeciaWebBackendApplication {
 		SpringApplication.run(PokemonGallaeciaWebBackendApplication.class, args);
 
 		if (!RETRIEVED_EXTERNAL_DATA) {
-			Networking myGameExternalData = new Networking();
-			myGameExternalData.makeGetRequest();
+			// External Rest API' data logic here
 		}
 	}
 
