@@ -3,9 +3,9 @@ package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.utils.GameCity;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.data.GameCity;
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.utils.Networking;
-import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.utils.Weather;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.utils.OpenWeatherInformation;
 
 @SpringBootApplication
 public class PokemonGallaeciaWebBackendApplication {
@@ -18,7 +18,10 @@ public class PokemonGallaeciaWebBackendApplication {
 
 		if (!RETRIEVED_EXTERNAL_DATA) {
 			// External Rest API' data logic here
+			OpenWeatherInformation wInformation = new OpenWeatherInformation();
+			wInformation.getCityWeather(GameCity.SANTIAGO_DE_COMPOSTELA);
 		}
 	}
 
 }
+ 

@@ -1,9 +1,7 @@
 package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.controllers;
 
-import java.util.List;
-
-import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity.Trainer;
-import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.service.ITrainerService;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity.Game;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.service.IGameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,15 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api")
-public class TrainerRestController {
+public class GameRestController {
     
     @Autowired
-    private ITrainerService trainerService;
+    private IGameService gameService;
 
-    @GetMapping("/trainers")
-    public List<Trainer> trainers() {
-        return trainerService.findAll();
+    @GetMapping("/Game")
+    public Game getGame() {
+        return gameService.getGame().get();
     }
-
-    public TrainerRestController() {}
 }

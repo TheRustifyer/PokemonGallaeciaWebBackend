@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
+
 public class Networking {
     
     private final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36";
@@ -16,9 +17,7 @@ public class Networking {
                 .build();
     }
 
-    public void makeGetRequest(String url) throws Exception {
-
-        System.out.println("*** Http GET request ***");
+    public HttpResponse<String> makeGetRequest(String url) throws Exception {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -38,11 +37,10 @@ public class Networking {
         System.out.println("*** END of Http GET request ***");
         // Still on implementation
 
+        return response;
     }
 
-    public void makePostRequest(String url) throws Exception {
-
-        System.out.println("*** Http POST request ***");
+    public HttpResponse<String> makePostRequest(String url) throws Exception {
 
         String urlParameters = "";
         // String urlParameters = "param1=a&param2=b&param3=c";
@@ -68,6 +66,7 @@ public class Networking {
 
         System.out.println("*** END of Http POST request ***");
 
+        return response;
     }
 
 }

@@ -34,4 +34,4 @@ build/
 
 ### USER ###
 import.sql
-Secret.java
+Data.java
