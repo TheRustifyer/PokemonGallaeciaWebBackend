@@ -1,6 +1,7 @@
 package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.controllers;
 
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity.Game;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.service.CityRepository;
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.service.IGameService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,14 @@ public class GameRestController {
 
     @GetMapping("/Game")
     public Game getGame() {
-        return gameService.getGame().get();
+
+        Game theGame = gameService.getGame().get();
+
+        // // CityRepository cityRepository = new CityRepository();
+        // // theGame.setGameCities(cityRepository.loadGameCities());
+        // System.out.println("*************************");
+        // System.out.println("Lista Ciudades en PrePersist: ");
+        // System.out.println("*************************");
+        return theGame;
     }
 }

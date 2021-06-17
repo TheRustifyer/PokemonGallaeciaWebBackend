@@ -20,12 +20,19 @@ public class OpenWeatherInformation extends Networking {
     // Empty constructor
     public OpenWeatherInformation() {}
 
-    private String cityToOpenWeatherUrl(GameCity city) {
-        return OpenWeatherInformation.OPEN_WEATHER_URL + city.toUrl() +  OpenWeatherInformation.CONFIG_PARAMS + OpenWeatherInformation.APP_ID;
+    private String cityToOpenWeatherUrl(String city) {
+        return OpenWeatherInformation.OPEN_WEATHER_URL + city +  OpenWeatherInformation.CONFIG_PARAMS + OpenWeatherInformation.APP_ID;
     }
 
     public Weather getCityWeather(GameCity city) throws Exception {
-        String cityToUrl = this.cityToOpenWeatherUrl(city);
+        String cityToUrl;
+        
+        if (city.hasAvailiableWeatherRequest()) {
+            cityToUrl = this.cityToOpenWeatherUrl(city.toUrl());
+        } else {
+            cityToUrl = this.cityToOpenWeatherUrl(city.getCityProvince().toUrl());
+        }
+
         HttpResponse<String> weatherInfo = super.makeGetRequest(cityToUrl);
 
         String body = weatherInfo.body();

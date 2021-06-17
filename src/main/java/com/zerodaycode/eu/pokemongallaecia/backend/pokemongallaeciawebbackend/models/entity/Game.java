@@ -2,8 +2,23 @@ package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.m
 
 import javax.persistence.*;
 
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.data.Data;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.service.CityRepository;
+
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+/*
+Game class is basically designed to offer real data to the Game throught this REST API,
+like the correct today's date, check if the internal game clock has been pwned comparing with this API data,
+real-time weather information in all game cities availiables...
+
+It's also designed in a self-managed way. This class makes multiple static calls initilializing internal Game data that should this API 
+serve. At start, make external API calls to another websites to retrive every game city current's weather, for example.
+
+*/
 
 @Entity
 @Table(name = "game")
@@ -18,12 +33,40 @@ public class Game implements Serializable {
 
     @JoinColumn(referencedColumnName = "id")
     @OneToMany
-    private List<City> gameCities;
+    private static List<City> gameCities;
+
+    private static String lastDataUpdate;
+    
+    private static String todaysDate;
 
     // Empty Constructor
-    public Game() {}
+    public Game() {
+        Game.gameCities = CityRepository.loadGameCities();
+        Game.retrieveTodaysDate(); 
+    }
 
-    
+    private static void dataUpdateTimestamp() {
+        GregorianCalendar gregCalendar = new GregorianCalendar();
+        
+        int hour = gregCalendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = gregCalendar.get(Calendar.MINUTE);
+        int seconds = gregCalendar.get(Calendar.SECOND);
+
+        Game.lastDataUpdate = Integer.toString(hour) + ":" + Integer.toString(minutes) + ":" + Integer.toString(seconds);
+    }
+
+    private static void retrieveTodaysDate() {
+        GregorianCalendar gregCalendar = new GregorianCalendar();
+        
+        String dayOfTheWeek = Data.DAYS_OF_THE_WEEK[gregCalendar.get(Calendar.DAY_OF_WEEK)];
+        int day = gregCalendar.get(Calendar.DATE);
+        String month = Data.MONTHS[gregCalendar.get(Calendar.MONTH)]; 
+        int year = gregCalendar.get(Calendar.YEAR);  
+
+        Game.todaysDate = dayOfTheWeek + ", " + day + " " + month + " " + year;
+        Game.dataUpdateTimestamp();
+    }
+
     // Getters and setters
     public String getGameName() {
         return Game.gameName;
@@ -38,13 +81,31 @@ public class Game implements Serializable {
     }
 
     public List<City> getGameCities() {
-        return this.gameCities;
+        return Game.gameCities;
     }
 
-    public void setGameCities(final List<City> gameCities) {
-        this.gameCities = gameCities;
+    public void setGameCities(List<City> gameCities) {
+        Game.gameCities = gameCities;
     }
 
-    
-    
+    public String getLastDataUpdate() {
+        return Game.lastDataUpdate;
+    }
+
+    public void setLastDataUpdate(String lastDataUpdate) {
+        Game.lastDataUpdate = lastDataUpdate;
+    }
+
+    public String getTodaysDate() {
+        return Game.todaysDate;
+    }
+
+    public void setTodaysDate(String todaysDate) {
+        Game.todaysDate = todaysDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Game [ID=" + this.id + ", gameCities=" + Game.gameCities + "]";
+    }
 }

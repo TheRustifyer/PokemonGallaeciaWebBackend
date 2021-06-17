@@ -11,10 +11,6 @@ public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    // @JoinColumn(referencedColumnName = "id")
-    // @OneToOne
-    // private Game game;
     
     private String name;
 

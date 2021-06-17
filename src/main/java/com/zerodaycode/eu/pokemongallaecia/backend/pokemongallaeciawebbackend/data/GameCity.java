@@ -6,23 +6,27 @@ import java.util.List;
 
 public enum GameCity {
     
-    SANTIAGO_DE_COMPOSTELA,
-    A_CORUÑA;
+    // Cities on A Coruña province
+    SANTIAGO_DE_COMPOSTELA(Province.A_CORUÑA, true),
+    A_CORUÑA(Province.A_CORUÑA, true),
+    BERTAMRIRANS(Province.LUGO, false);
 
-    public static String cityToString(GameCity city) {
+    private Province province;
+    private Boolean weatherOnOpenweather;
 
-        String cityAsString = "";
+    GameCity(Province province, Boolean weatherOnOpenweather) {
+        this.province = province;
+        this.weatherOnOpenweather = weatherOnOpenweather;
+    }
 
-        switch (city) {
-            case SANTIAGO_DE_COMPOSTELA:
-                cityAsString = "Santiago de Compostela";
-                break;
-            case A_CORUÑA:
-                cityAsString = "A Coruña";
-                break;
-        }
+    public Boolean hasAvailiableWeatherRequest() {
+        if (this.weatherOnOpenweather) {
+            return true;
+        } else { return false ;}
+    }
 
-        return cityAsString;
+    public Province getCityProvince() {
+        return this.province;
     }
 
     @Override
