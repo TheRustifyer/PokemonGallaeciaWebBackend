@@ -4,10 +4,12 @@ import javax.persistence.*;
 
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.data.Data;
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.service.CityRepository;
+import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.utils.OpenWeatherInformation;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 /*
@@ -39,10 +41,21 @@ public class Game implements Serializable {
     
     private static String todaysDate;
 
+    private static Integer sunriseHour;
+    private static Integer sunsetHour;
+
     // Empty Constructor
-    public Game() {
+    public Game() throws Exception {
         Game.gameCities = CityRepository.loadGameCities();
         Game.retrieveTodaysDate(); 
+        Game.gameSunriseSunsetHour();
+    }
+
+    private static void gameSunriseSunsetHour() throws Exception {
+        OpenWeatherInformation owi = new OpenWeatherInformation();
+        HashMap<String, Integer> myDayTime = owi.getSunriseSunsetHour();
+        Game.sunriseHour = myDayTime.get("sunrise");
+        Game.sunsetHour = myDayTime.get("sunset");
     }
 
     private static void dataUpdateTimestamp() {
@@ -102,6 +115,22 @@ public class Game implements Serializable {
 
     public void setTodaysDate(String todaysDate) {
         Game.todaysDate = todaysDate;
+    }
+
+    public Integer getSunriseHour() {
+        return Game.sunriseHour;
+    }
+
+    public void setSunriseHour(Integer sunriseHour) {
+        Game.sunriseHour = sunriseHour;
+    }
+
+    public Integer getSunsetHour() {
+        return Game.sunsetHour;
+    }
+
+    public void setSunsetHour(Integer sunsetHour) {
+        Game.sunsetHour = sunsetHour;
     }
 
     @Override

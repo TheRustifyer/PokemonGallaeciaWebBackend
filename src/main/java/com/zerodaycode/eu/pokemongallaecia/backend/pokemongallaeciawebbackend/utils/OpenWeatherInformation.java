@@ -1,6 +1,7 @@
 package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.utils;
 
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.data.Data;
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.data.GameCity;
@@ -25,15 +26,15 @@ public class OpenWeatherInformation extends Networking {
     }
 
     public Weather getCityWeather(GameCity city) throws Exception {
-        String cityToUrl;
+        String cityAsUrl;
         
         if (city.hasAvailiableWeatherRequest()) {
-            cityToUrl = this.cityToOpenWeatherUrl(city.toUrl());
+            cityAsUrl = this.cityToOpenWeatherUrl(city.toUrl());
         } else {
-            cityToUrl = this.cityToOpenWeatherUrl(city.getCityProvince().toUrl());
+            cityAsUrl = this.cityToOpenWeatherUrl(city.getCityProvince().toUrl());
         }
 
-        HttpResponse<String> weatherInfo = super.makeGetRequest(cityToUrl);
+        HttpResponse<String> weatherInfo = super.makeGetRequest(cityAsUrl);
 
         String body = weatherInfo.body();
 
@@ -52,5 +53,26 @@ public class OpenWeatherInformation extends Networking {
         Weather weather = new Weather(weatherIdCode, mainCode, description, icon);
 
         return weather;
+    }
+
+    public HashMap<String, Integer> getSunriseSunsetHour() throws Exception {
+        // The game's sunrise and sunset hours are calculated are the sunrise/sunset Santiago de Compostela hours.
+        String sdc = GameCity.SANTIAGO_DE_COMPOSTELA.toUrl();
+        String url = this.cityToOpenWeatherUrl(sdc);
+
+        HttpResponse<String> sunriseSunsetResponse = super.makeGetRequest(url);
+        String body = sunriseSunsetResponse.body();
+
+        JsonHandling jsonData = new JsonHandling();
+        JSONObject jsonObject = jsonData.jsonFromString(body).getJSONObject("sys");
+        
+        Integer sunrise = (Integer) jsonObject.get("sunrise");
+        Integer sunset = (Integer) jsonObject.get("sunset");
+
+        HashMap<String, Integer> myDayTime = new HashMap<String, Integer>();
+        myDayTime.put("sunrise", sunrise);
+        myDayTime.put("sunset", sunset);
+
+        return myDayTime;
     }
 }
