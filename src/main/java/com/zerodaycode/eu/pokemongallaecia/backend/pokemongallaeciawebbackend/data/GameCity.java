@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum GameCity {
-    
+    // The most secret place on the game ;)
+    CAMPO_DE_PRUEBAS(Province.A_CORUÑA, false),
     // Cities on A Coruña province
+    PUEBLO_DE_TEO(Province.LUGO, false),
     SANTIAGO_DE_COMPOSTELA(Province.A_CORUÑA, true),
     A_CORUÑA(Province.A_CORUÑA, true),
-    BERTAMRIRANS(Province.LUGO, false);
+    AMES(Province.A_CORUÑA, true);
 
     private Province province;
     private Boolean weatherOnOpenweather;

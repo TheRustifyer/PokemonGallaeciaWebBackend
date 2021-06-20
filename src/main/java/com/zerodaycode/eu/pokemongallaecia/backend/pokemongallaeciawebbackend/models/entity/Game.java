@@ -71,9 +71,13 @@ public class Game implements Serializable {
     private static void retrieveTodaysDate() {
         GregorianCalendar gregCalendar = new GregorianCalendar();
         
-        String dayOfTheWeek = Data.DAYS_OF_THE_WEEK[gregCalendar.get(Calendar.DAY_OF_WEEK)];
+        int dow = gregCalendar.get(Calendar.DAY_OF_WEEK);
+        String dayOfTheWeek = (dow > 1) ? Data.DAYS_OF_THE_WEEK[dow - 2] : Data.DAYS_OF_THE_WEEK[Data.DAYS_OF_THE_WEEK.length - 1];
+        
         int day = gregCalendar.get(Calendar.DATE);
+        
         String month = Data.MONTHS[gregCalendar.get(Calendar.MONTH)]; 
+        
         int year = gregCalendar.get(Calendar.YEAR);  
 
         Game.todaysDate = dayOfTheWeek + ", " + day + " " + month + " " + year;
