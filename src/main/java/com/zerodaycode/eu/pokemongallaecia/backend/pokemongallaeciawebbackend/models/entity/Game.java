@@ -44,7 +44,7 @@ public class Game implements Serializable {
     private static Integer sunriseHour;
     private static Integer sunsetHour;
 
-    // Empty Constructor
+    // Constructor
     public Game() throws Exception {
         Game.gameCities = CityRepository.loadGameCities();
         Game.retrieveTodaysDate(); 

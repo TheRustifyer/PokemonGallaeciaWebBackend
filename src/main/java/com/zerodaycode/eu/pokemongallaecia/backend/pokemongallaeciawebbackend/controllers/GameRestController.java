@@ -23,11 +23,8 @@ public class GameRestController {
 
         Game theGame = gameService.getGame().get();
 
-        // // CityRepository cityRepository = new CityRepository();
-        // // theGame.setGameCities(cityRepository.loadGameCities());
-        // System.out.println("*************************");
-        // System.out.println("Lista Ciudades en PrePersist: ");
-        // System.out.println("*************************");
+        gameService.save(theGame);
+        
         return theGame;
     }
 }
