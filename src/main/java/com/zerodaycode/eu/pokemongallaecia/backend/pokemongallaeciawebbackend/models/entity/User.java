@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -20,10 +21,15 @@ public class User implements Serializable {
     private int id;
     
     // Account data
+    @NotEmpty
+    @Size(min = 4, max = 25)
+    @Column(nullable = false, unique = true)
     private String username;
     private String password;
+    
+    @Email
+    @Column(nullable = false, unique = true)
     private String email;
-
 
     // User "real life" data
     private String name;
@@ -31,16 +37,19 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     
-
     // Account details
     @Column(name = "account_creation_date")
     @Temporal(TemporalType.DATE)
     private Date accountCreationDate;
 
+    @PrePersist
+    public void prePersist() {
+        this.accountCreationDate = new Date();
+    }
 
     // The relation with the trainer table
     @JoinColumn(referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Trainer trainer;
 
     // Empty constructor (Java Beans requisite)
