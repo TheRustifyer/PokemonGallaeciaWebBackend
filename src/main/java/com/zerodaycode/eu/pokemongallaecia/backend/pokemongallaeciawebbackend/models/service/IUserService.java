@@ -5,9 +5,14 @@ import java.util.Optional;
 
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity.User;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
 public interface IUserService {
     
     public List<User> findAll();
+
+    public Page<User> findAll(Pageable pageable);
 
     public<T extends Number> Optional<User> findById(T id);
 

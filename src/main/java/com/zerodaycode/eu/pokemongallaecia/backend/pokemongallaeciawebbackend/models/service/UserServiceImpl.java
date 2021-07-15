@@ -7,6 +7,8 @@ import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.mo
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,12 @@ public class UserServiceImpl implements IUserService {
     @Transactional(readOnly = true)
     public List<User> findAll() {
         return (List<User>) this.userDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<User> findAll(Pageable pageable) {
+        return this.userDao.findAll(pageable);
     }
 
     @Override

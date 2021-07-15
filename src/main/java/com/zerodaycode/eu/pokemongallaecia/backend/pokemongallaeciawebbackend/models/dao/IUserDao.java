@@ -2,8 +2,8 @@ package com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.m
 
 import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.models.entity.User;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IUserDao extends CrudRepository<User, Integer> {
+public interface IUserDao extends JpaRepository<User, Integer> {
     
 }

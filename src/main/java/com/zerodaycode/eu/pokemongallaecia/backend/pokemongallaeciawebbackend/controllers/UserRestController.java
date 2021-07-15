@@ -12,6 +12,8 @@ import com.zerodaycode.eu.pokemongallaecia.backend.pokemongallaeciawebbackend.mo
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -36,6 +39,11 @@ public class UserRestController {
     @GetMapping("/users")
     public List<User> users() {
         return userService.findAll();
+    }
+
+    @GetMapping("/users/page/{page}")
+    public Page<User> users(@PathVariable int page) {
+        return userService.findAll(PageRequest.of(page, 5));
     }
 
     @GetMapping("/users/{id}")
@@ -126,7 +134,7 @@ public class UserRestController {
     
             updatedUser = userService.save(actualUser);
         } catch (DataAccessException error) {
-            response.put("Error", error.getMessage()
+            response.put("error", error.getMessage()
                 .concat("\nHa habido un error al actualizar el usuario en la BBDD: ")
                 .concat(error.getMostSpecificCause().getMessage())
                 );
